@@ -10,5 +10,19 @@ on:
     types: [closed]
 
 jobs:
+
   run-stable-sync:
-    uses: metamask/github-tools/.github/workflows/stable-sync.yml@ale/infra-2532-master-sync-pr
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the next semver version
+        id: get-next-semver-version
+        env:
+          FORCE_NEXT_SEMVER_VERSION: ${{ vars.FORCE_NEXT_SEMVER_VERSION }}
+        run: ./get-next-semver-version.sh "$FORCE_NEXT_SEMVER_VERSION"
+        working-directory: '.github/scripts'
+      
+      - name: Run stable-sync workflow
+        uses: metamask/github-tools/.github/workflows/stable-sync.yml@ale/infra-2532-master-sync-pr
+        with:
+          semver-version: ${{ env.NEXT_SEMVER_VERSION }}
+
