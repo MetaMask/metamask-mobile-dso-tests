@@ -112,6 +112,13 @@ async function runGitCommands() {
     console.log('Executed: git add .');
 
     try {
+      // Check if there are any changes to commit
+      const { stdout: status } = await exec('git status --porcelain');
+      if (!status.trim()) {
+        console.log('No changes to commit, skipping commit step');
+        return;
+      }
+
       await exec(`git commit -m "Merge origin/main into ${branchName}" --no-verify`);
       console.log('Executed: git commit');
     } catch (error) {
