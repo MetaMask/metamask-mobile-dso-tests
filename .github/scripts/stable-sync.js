@@ -111,8 +111,13 @@ async function runGitCommands() {
     await exec('git add .');
     console.log('Executed: git add .');
 
-    await exec(`git commit -m "Merge origin/main into ${branchName}" --no-verify`);
-    console.log('Executed: git commit');
+    try {
+      await exec(`git commit -m "Merge origin/main into ${branchName}" --no-verify`);
+      console.log('Executed: git commit');
+    } catch (error) {
+      console.error(`Error: ${error.message}`);
+      process.exit(1);
+    }
 
     console.log(`Your local ${branchName} branch is now ready to become a PR.`);
     console.log('You likely now need to do `git push --force`');
