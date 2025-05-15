@@ -1,0 +1,14 @@
+name: Stable Branch Sync
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+jobs:
+  run-stable-sync:
+    uses: metamask/github-tools/.github/workflows/stable-sync.yml@ale/infra-2532-master-sync-pr
