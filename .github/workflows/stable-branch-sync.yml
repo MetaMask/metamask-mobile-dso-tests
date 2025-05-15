@@ -19,6 +19,9 @@ jobs:
     outputs:
       next-version: ${{ env.NEXT_SEMVER_VERSION }}
     steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
         - name: Get the next semver version
           id: get-next-semver-version
           env:
