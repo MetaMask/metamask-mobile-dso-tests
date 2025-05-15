@@ -31,4 +31,3 @@ jobs:
     uses: metamask/github-tools/.github/workflows/stable-sync.yml@ale/infra-2532-master-sync-pr
     with:
       semver-version: ${{ needs.get-next-version.outputs.next-version }}
-
